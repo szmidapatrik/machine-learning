@@ -9,5 +9,10 @@ A playground repository for practicing the coding of different methods and aspec
     - Polynomial Logistic regressions (ML),
 
     - Normal distribution PDF and CDF,
-    - Laplace distribution PDF and CDF
+    - Laplace distribution PDF and CDF,
+    - Student's τ distribution PDF and CDF,
     - Exponential distribution PDF and CDF.
+
+Known errors:
+
+    -Student's τ distribution's CDF value-error
