@@ -25,8 +25,10 @@ class StudentsτDistribution:
         return first * np.power(1 + (x ** 2 / self.v), -((self.v + 1) / 2))
     
     # CDF - Cumultative Density Function
-    def cdf(self, axis):
-        return np.cumsum(self.pdf(axis))
+    def cdf(self, x):
+        cdf_values = np.cumsum(self.pdf(x))
+        normalized_cdf = cdf_values / cdf_values[-1]  # Normalize by dividing by the last value
+        return normalized_cdf
 
     # Array of zeros with size param
     def zeros(self, size):
