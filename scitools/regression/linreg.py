@@ -59,7 +59,7 @@ class LinearRegression:
     def Φ(self, X):
         return np.vstack([np.ones(len(X)), X.T]).T
 
-    # ----- Maximum Likelyhood -----
+    # ----- Maximum Likelihood -----
 
     # ML (Maximum likelihood) fit
     def fit_ML(self, X, y):
