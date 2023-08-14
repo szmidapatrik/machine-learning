@@ -55,18 +55,20 @@ class LinearRegression:
         y = self.linear_function(x, m, b) + np.random.normal(μ, Σ, N)
         return np.vstack([x,y]).T
     
-
+    # transformation
+    def Φ(self, X):
+        return np.vstack([np.ones(len(X)), X.T]).T
 
     # ----- Maximum Likelyhood -----
 
     # ML (Maximum likelihood) fit
     def fit_ML(self, X, y):
-        Φ = np.vstack([np.ones(len(X)), X]).T
+        Φ = self.Φ(X)
         self.w_ML = np.linalg.solve(Φ.T @ Φ, Φ.T @ y)
 
     # ML (Maximum likelihood) estimate
     def predict_ML(self, X):
-        Φ = np.vstack([np.ones(len(X)), X]).T
+        Φ = self.Φ(X)
         return Φ @ self.w_ML
     
     # ML (Maximum likelihood) fit-predict
@@ -80,13 +82,13 @@ class LinearRegression:
     
     # MAP (Maximum A Posteriori) fit
     def fit_MAP(self, X, y):
-        Φ = np.vstack([np.ones(len(X)), X]).T
+        Φ = self.Φ(X)
         I = np.identity(2)
         self.w_MAP = np.linalg.solve(Φ.T @ Φ + self.λ * I, Φ.T @ y)
 
     # MAP (Maximum A Posteriori) estimate
     def predict_MAP(self, X):
-        Φ = np.vstack([np.ones(len(X)), X]).T
+        Φ = self.Φ(X)
         return Φ @ self.w_MAP
     
     # MAP (Maximum A Posteriori) fit-predict
@@ -100,7 +102,7 @@ class LinearRegression:
     
     # w posterior
     def w_posterior(self, X, y):
-        Φ = np.vstack([np.ones(len(X)), X]).T
+        Φ = self.Φ(X)
         I = np.identity(2)
         self.wΣ = self.ß * Φ.T @ Φ + self.α * I
         self.wμ = pow(self.wΣ, -1) @ (self.ß * Φ.T @ y)

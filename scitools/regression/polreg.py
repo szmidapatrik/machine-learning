@@ -13,9 +13,9 @@ class PolynomialRegression:
     # Polynomial function
     def polynomial_function(self, x, pol_params=None):
         if pol_params != None:
-            if np.array(pol_params).shape == 3:
+            if np.array(pol_params).shape == (3,):
                 params = pol_params
-            elif np.array(pol_params).shape == 1:
+            elif np.array(pol_params).shape == ():
                 params = np.ones(3) * pol_params
             else:
                 print('The given @pol_params parameter\'s type was incorrect. It must either be an integer, float, or an array of numbers with the length of 3.\nA random polynom will be generated.')
@@ -47,7 +47,7 @@ class PolynomialRegression:
             print('The @degree parameter with value 1 applies no transformation to the data.')
             return X
         Φ = X
-        for d in range(2,degree + 1):
+        for d in range(2, degree + 1):
             Φ = np.vstack([Φ, X ** d])
         return Φ.T
     
