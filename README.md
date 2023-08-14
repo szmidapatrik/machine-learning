@@ -7,6 +7,7 @@ A playground repository for practicing the coding of different methods and aspec
     - Regression using basis function (Gauss RBF),
     - Logistic regression (ML),
     - Polynomial Logistic regressions (ML),
+    - Naiv Bayes classifier,
 
     - Normal distribution PDF and CDF,
     - Laplace distribution PDF and CDF,
