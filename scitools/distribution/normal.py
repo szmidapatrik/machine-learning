@@ -12,9 +12,16 @@ class NormalDistribution:
         self.μ = μ
         self.σ = σ
 
-    # Sample from distibution
+    # Sample from distibution using Box-Müller Transformation
     def sample(self, size):
-        return np.random.normal(self.μ, self.σ ** 2, size)
+        N = size if size % 2 == 0 else size + 1
+        U = np.random.rand(N)
+        U_1 = U[:int(N/2)]
+        U_2 = U[int(N/2):]
+        X_1 = np.sqrt(-2 * np.log(U_1)) * np.cos(2 * np.pi * U_2)
+        X_2 = np.sqrt(-2 * np.log(U_1)) * np.sin(2 * np.pi * U_2)
+        X = np.concatenate([X_1, X_2])
+        return X if size % 1 == 0 else X[:-1]
     
     # PDF - Probability density function
     def pdf(self, axis):
