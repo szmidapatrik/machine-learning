@@ -4,8 +4,9 @@ from scitools.regression import LinearRegression
 class PolynomialRegression:
     
     # Constructor
-    def __init__(self):
-        return
+    def __init__(self, α=1, ß=1):
+        self.α = α
+        self.ß = ß
 
         
     # ----- Data generation and transformation -----
@@ -57,14 +58,14 @@ class PolynomialRegression:
 
     # ML (Maximum likelihood) fit
     def fit_ML(self, X, y):
-        LinearRegression().fit_ML(X, y)
+        LinearRegression(self.α, self.ß).fit_ML(X, y)
 
     # ML (Maximum likelihood) estimate
     def predict_ML(self, X):
-        return LinearRegression().predict_ML(X)
+        return LinearRegression(self.α, self.ß).predict_ML(X)
     
     # ML (Maximum likelihood) fit-predict
     def fit_predict_ML(self, X, y):
-        return LinearRegression().fit_predict_ML(X, y)
+        return LinearRegression(self.α, self.ß).fit_predict_ML(X, y)
     
     
