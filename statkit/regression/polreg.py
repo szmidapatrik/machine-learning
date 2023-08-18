@@ -1,5 +1,5 @@
 import numpy as np
-from scitools.regression import LinearRegression
+from statkit.regression import LinearRegression
 
 class PolynomialRegression:
     

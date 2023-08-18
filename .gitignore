@@ -2,5 +2,5 @@
 **/build
 **/machine_learning.egg-info
 **/sci_tools.egg-info
-normal_scitools.csv
+normal_statkit.csv
 normal_numpy.csv
