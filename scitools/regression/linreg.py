@@ -53,7 +53,7 @@ class LinearRegression:
         self.b = b
         x = np.linspace(min, max, N)
         y = self.linear_function(x, m, b) + np.random.normal(μ, Σ, N)
-        return np.vstack([x,y]).T
+        return x, y
     
     # transformation
     def Φ(self, X):
@@ -83,7 +83,7 @@ class LinearRegression:
     # MAP (Maximum A Posteriori) fit
     def fit_MAP(self, X, y):
         Φ = self.Φ(X)
-        I = np.identity(2)
+        I = np.identity(Φ.shape[1])
         self.w_MAP = np.linalg.solve(Φ.T @ Φ + self.λ * I, Φ.T @ y)
 
     # MAP (Maximum A Posteriori) estimate
