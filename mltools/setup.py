@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='statkit',
+    name='mltools',
     version='0.1',
     packages=find_packages(),
 )
