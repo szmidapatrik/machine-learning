@@ -1,0 +1,4 @@
+classification
+distribution
+generative
+regression
