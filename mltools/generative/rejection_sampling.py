@@ -43,7 +43,7 @@ class RejectionSampling:
             if q == 'normal':
 
                 # Sample from the normal distribution
-                samples = estimation_dist.sample(500) * M
+                samples = estimation_dist.sample(500)
             elif q == 'uniform':
 
                 # Sample from the uniform distribution
@@ -73,7 +73,7 @@ class RejectionSampling:
 
     # Check whether a generated sample is in the right range
     def check_sample_range(self, sample, data):
-        if sample > np.min(data) * 0.9 and sample < np.max(data) * 1.1:
+        if sample > np.min(data) and sample < np.max(data):
             return True
         else:
             return False
