@@ -12,7 +12,30 @@ class EstimatePDF:
     # window_number : window number
     # interval_min : start point of interval
     # interval_max : end point of interval
-    def pdf(self, x, windows_size, window_number, interval_min=None, interval_max=None):
+    def pdf(self, x, windows_size, window_number=None, interval_min=None, interval_max=None):
+        
+        x_min = self.set_interval_start(x, interval_min)
+        x_max = self.set_interval_end(x, interval_max)
+
+        if window_number is None:
+            window_number = int((x_max - x_min) / windows_size)
+        
+        x_axis = np.linspace(x_min, x_max, window_number)
+
+        fx = []
+        for x_value in x_axis:
+            fx.append(x[x > x_value - windows_size/2][x[x > x_value - windows_size/2] < x_value + windows_size/2].shape[0] / (x.shape[0] * windows_size))
+        return x_axis, fx
+
+    
+    
+    # PDF Function shape estimate
+    # x : data
+    # windows_size : window size
+    # window_number : window number
+    # interval_min : start point of interval
+    # interval_max : end point of interval
+    def calc_pdf(self, x, windows_size, window_number, interval_min=None, interval_max=None):
         
         x_min = self.set_interval_start(x, interval_min)
         x_max = self.set_interval_end(x, interval_max)
@@ -38,7 +61,7 @@ class EstimatePDF:
 
 
         for idx, windows_size in enumerate(windows_size_list):
-            _, fx_temp = self.pdf(x, x_interval / windows_size, window_number, interval_min, interval_max)
+            _, fx_temp = self.calc_pdf(x, x_interval / windows_size, window_number, interval_min, interval_max)
             fx_temp = np.array(fx_temp)
             if idx == 0:
                 fx = fx_temp

@@ -9,7 +9,7 @@ class RejectionSampling:
         pass
 
     # Sample from the distribution of x data
-    def sample(self, data, sample_number, smoothing_rate=1000, q='uniform'):
+    def sample(self, data, sample_number, smoothing_rate=1000, q='normal'):
 
         data_pdf_x, data_pdf_y = EstimatePDF().smooth_pdf(data, smoothing_rate)
 
@@ -18,10 +18,11 @@ class RejectionSampling:
             # Normal distribution pdf
             estimation_dist = NormalDistribution(np.mean(data), np.std(data))
             q_pdf = estimation_dist.pdf(data_pdf_x)
+
             
             # Index where the difference between data_pdf_y and q_pdf is the biggest
-            max_difference = np.max(data_pdf_y[data_pdf_y > q_pdf])
-            max_difference_idx = np.where(data_pdf_y == max_difference)[0][0]
+            max_difference = np.max(data_pdf_y - q_pdf)
+            max_difference_idx = np.where(data_pdf_y - q_pdf == max_difference)[0][0]
 
             # Multiplier; raising the PDF of the normal distribution over the data PDF
             M = (data_pdf_y[max_difference_idx] / q_pdf[max_difference_idx]) + 0.01
@@ -57,6 +58,16 @@ class RejectionSampling:
 
                 # Accept the sample with probability p(x) / Mq(x)
                 accept_proba = data_pdf_y[idx] / (M * q_pdf[idx])
+
+                print('------------------')
+                print('sample: ', sample)
+                print('clusest_x: ', data_pdf_x[idx])
+                print('idx: ', idx)
+                print('M: ', M)
+                print('data_pdf_y[idx]: ', data_pdf_y[idx])
+                print('q_pdf[idx]: ', q_pdf[idx] * M)
+                print('accept_proba: ', accept_proba)
+
                 if np.random.rand() < accept_proba and self.check_sample_range(sample, data):
                     accepted.append(sample)
 
